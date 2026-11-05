@@ -22,24 +22,32 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
+        
+        /* ФУТЕР ВНИЗУ СТРАНИЦЫ */
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Montserrat', sans-serif; 
+            line-height: 1.6; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
+        .main-content { flex: 1; }
+
         /* --- ШАПКА --- */
         header { background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; min-height: 90px; }
         
         /* --- ЛОГОТИП --- */
         .logo { 
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start; 
-            height: 70px; 
-            width: 220px; 
-            overflow: hidden; 
-            cursor: pointer;
-            margin-left: 100px; /* СДВИГ ВПРАВО НА 300px */
+            display: flex; align-items: center; justify-content: flex-start; 
+            height: 70px; width: 220px; overflow: hidden; cursor: pointer;
+            margin-left: 100px; 
         }
         .logo img { height: 100%; width: auto; object-fit: contain; } 
         
@@ -106,10 +114,19 @@
         .badge-new { background: var(--accent); }
         .badge-sale { background: var(--danger); }
 
-        /* --- ПАНЕЛЬ СОРТИРОВКИ И ФИЛЬТРОВ --- */
-        .controls-bar { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+        /* --- ПАНЕЛЬ ФИЛЬТРОВ И СОРТИРОВКИ --- */
+        .controls-bar { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 30px; }
         
-        .filter-group { display: flex; gap: 10px; }
+        .filter-section { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
+        .filter-group { display: flex; align-items: center; gap: 10px; }
+        .filter-group label { font-weight: 600; font-size: 14px; color: #555; white-space: nowrap;}
+        
+        .search-input { padding: 10px 15px; border-radius: 8px; border: 1px solid #ccc; font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none; width: 200px; transition: border 0.3s; }
+        .search-input:focus { border-color: var(--accent); }
+        
+        .price-select { padding: 10px 15px; border-radius: 8px; border: 1px solid #ccc; font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none; cursor: pointer; background: #fff; transition: border 0.3s; }
+        .price-select:focus { border-color: var(--accent); }
+
         .filter-bar button { background: var(--secondary); border: none; padding: 8px 15px; cursor: pointer; border-radius: 20px; transition: 0.3s; font-size: 14px; font-family: 'Montserrat', sans-serif; font-weight: 500;}
         .filter-bar button:hover, .filter-bar button.active { background: var(--primary); color: #fff; }
 
@@ -117,34 +134,28 @@
         .sort-group select { padding: 10px 15px; border-radius: 8px; border: 1px solid #ccc; font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none; cursor: pointer; background: #fff; transition: border 0.3s; }
         .sort-group select:focus { border-color: var(--accent); }
 
-        /* --- КАРТОЧКА ТОВАРА (ДЕТАЛЬНАЯ) --- */
-        .product-page { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 50px; 
-            background: #fff; 
-            padding: 40px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            margin-bottom: 30px; 
-            align-items: start; 
-        }
-        .product-gallery { position: sticky; top: 110px; }
-        .product-img { width: 100%; height: 520px; object-fit: cover; border-radius: 15px; background: #eee; display: block; }
+        /* --- КАРТОЧКА ТОВАРА (С ГАЛЕРЕЕЙ) --- */
+        .product-page { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; align-items: start; }
         
+        .product-gallery { display: flex; flex-direction: column; gap: 15px; }
+        .product-img-main { width: 100%; height: 500px; object-fit: cover; border-radius: 15px; background: #eee; display: block; transition: transform 0.3s; }
+        
+        /* Миниатюры (3 штуки) */
+        .product-thumbnails { display: flex; gap: 15px; justify-content: center; }
+        .thumb-img { width: 80px; height: 80px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: border 0.3s; }
+        .thumb-img:hover, .thumb-img.active-thumb { border-color: var(--accent); }
+
         .product-info h1 { font-size: 32px; margin-bottom: 10px; color: var(--primary); line-height: 1.2; }
         .product-info .rating-stars { font-size: 16px; margin-bottom: 15px; }
         .product-info .price-block { margin: 15px 0; }
         .product-info .price { font-size: 30px; }
         .product-info .old-price { font-size: 18px; }
 
-        /* Компактный список характеристик */
         .specs-list { list-style: none; margin: 15px 0 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0; }
         .specs-list li { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 15px;}
         .specs-list li span { color: #666; }
         .specs-list li b { font-weight: 600; color: var(--text); }
 
-        /* Новые блоки описания (без лишних отступов, чтобы заполнить правую колонку) */
         .detail-block { background: var(--bg); padding: 15px 20px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid var(--accent); }
         .detail-block h3 { font-size: 16px; margin-bottom: 5px; color: var(--primary); }
         .detail-block p { font-size: 14px; color: #444; margin: 0; line-height: 1.5; }
@@ -160,7 +171,6 @@
         .review-text { font-size: 15px; color: #555; }
 
         /* --- НОВЫЕ БЛОКИ НА ГЛАВНОЙ --- */
-        .home-section { background: #fff; padding: 50px; border-radius: 20px; margin-bottom: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .promo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
         .promo-card { background: var(--secondary); padding: 40px; border-radius: 20px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
         .promo-card h2 { font-size: 28px; color: var(--primary); margin-bottom: 15px; }
@@ -171,7 +181,6 @@
         .promo-card.accent .btn { background: #fff; color: var(--accent); }
         .promo-card.accent .btn:hover { background: var(--secondary); }
 
-        /* Блок с блогом / рецептами */
         .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .blog-card { background: #f9f9f9; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03);}
         .blog-img { width: 100%; height: 200px; object-fit: cover; display: block; }
@@ -179,7 +188,6 @@
         .blog-body h4 { font-size: 18px; margin-bottom: 10px; color: var(--primary); }
         .blog-body p { font-size: 14px; color: #777; }
 
-        /* Подписка */
         .newsletter { background: var(--secondary); padding: 50px; border-radius: 20px; text-align: center; margin-top: 50px; }
         .newsletter h2 { color: var(--primary); margin-bottom: 10px; }
         .newsletter p { color: #555; margin-bottom: 25px; }
@@ -214,11 +222,33 @@
         .checkout-form-container { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .checkout-summary { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: fit-content;}
 
+        /* --- ВКЛАДКА О НАС --- */
+        .about-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 50px; }
+        .about-image { width: 100%; height: 400px; object-fit: cover; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .about-text h2 { font-size: 32px; color: var(--primary); margin-bottom: 20px; }
+        .about-text p { font-size: 16px; color: #555; margin-bottom: 15px; line-height: 1.8; }
+        
+        .about-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
+        .about-feature-card { background: #fff; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .about-feature-card h3 { color: var(--accent); margin-bottom: 15px; }
+
         /* --- ПОДВАЛ --- */
-        footer { background: var(--primary); color: #fff; padding: 50px 0; text-align: center; margin-top: 80px; }
-        footer p { margin-bottom: 10px; color: #ddd; }
-        footer a { color: var(--secondary); text-decoration: none; margin: 0 10px; transition: color 0.3s; }
-        footer a:hover { color: #fff; }
+        footer { background: var(--primary); color: #fff; padding: 40px 0 20px; margin-top: auto; }
+        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; margin-bottom: 30px; }
+        .footer-col { flex: 1; min-width: 200px; }
+        .footer-col h4 { color: var(--secondary); margin-bottom: 15px; font-size: 18px; }
+        .footer-col p, .footer-col a { color: #ddd; font-size: 14px; text-decoration: none; display: block; margin-bottom: 8px; transition: color 0.3s; }
+        .footer-col a:hover { color: #fff; }
+        
+        /* СОЦСЕТИ */
+        .social-links { display: flex; gap: 15px; margin-top: 15px; }
+        .social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; transition: background 0.3s; overflow: hidden; }
+        .social-links a:hover { background: var(--accent); }
+        .social-links svg { width: 18px; height: 18px; fill: #fff; transition: transform 0.3s; }
+        .social-links a:hover svg { transform: scale(1.1); }
+        
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; font-size: 14px; color: #aaa; }
+        .footer-bottom a { color: var(--secondary); text-decoration: none; }
 
         /* --- КРАСИВЫЙ СКРОЛЛБАР --- */
         ::-webkit-scrollbar { width: 10px; }
@@ -234,22 +264,24 @@
         
         /* --- АДАПТИВ --- */
         @media (max-width: 992px) {
-            .product-page { grid-template-columns: 1fr; gap: 30px; }
+            .product-page, .about-hero { grid-template-columns: 1fr; gap: 30px; }
             .product-gallery { position: static; }
-            .product-img { height: 400px; }
+            .product-img-main { height: 400px; }
             .promo-grid { grid-template-columns: 1fr; }
-            .blog-grid, .popular-grid { grid-template-columns: 1fr 1fr; }
+            .blog-grid, .popular-grid, .about-features { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 768px) {
             .features, .contact-grid, .checkout-grid { grid-template-columns: 1fr; }
-            .blog-grid, .popular-grid { grid-template-columns: 1fr; }
+            .blog-grid, .popular-grid, .about-features { grid-template-columns: 1fr; }
             .header-inner { flex-direction: column; gap: 15px; min-height: 80px; }
             nav ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
             .hero h1 { font-size: 32px; }
             .logo { margin-left: 0; width: 200px; height: 60px; } 
-            .controls-bar { flex-direction: column; align-items: flex-start; }
-            .home-section { padding: 30px 20px; }
+            .controls-bar { flex-direction: column; align-items: stretch; }
+            .search-input { width: 100%; }
             .newsletter-form { flex-direction: column; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .social-links { justify-content: center; }
         }
     </style>
 </head>
@@ -281,392 +313,446 @@
         </div>
     </header>
 
-    <!-- 1. ГЛАВНАЯ -->
-    <div id="home" class="page-content active">
-        <div class="container">
-            <div class="hero">
-                <h1>Свежий россыпной чай<br>и кофе с доставкой</h1>
-                <p>Прямые поставки от плантаций. Продаем только на развес — никаких пакетиков!</p>
-                <button class="btn" onclick="showPage('catalog')">Перейти в каталог</button>
-            </div>
-            
-            <div class="features">
-                <div class="feature-card"><h3>Только на развес</h3><p>Отвешиваем ровно столько, сколько нужно вам.</p></div>
-                <div class="feature-card"><h3>Свежая обжарка</h3><p>Гарантируем высокое качество каждого зерна.</p></div>
-                <div class="feature-card"><h3>Быстрая доставка</h3><p>Отправляем заказы в день оплаты.</p></div>
-            </div>
-
-            <!-- Блок с акциями -->
-            <div class="promo-grid">
-                <div class="promo-card">
-                    <h2>Первый заказ без предоплаты</h2>
-                    <p>Оформите заказ на любую сумму и оплатите при получении курьеру или в пункте выдачи.</p>
-                    <button class="btn" onclick="showPage('catalog')">Выбрать чай</button>
-                </div>
-                <div class="promo-card accent">
-                    <h2>Чайный клуб</h2>
-                    <p>Подпишитесь на ежемесячную доставку любимых сортов и получайте скидку 15% на весь ассортимент.</p>
-                    <button class="btn" onclick="alert('Форма подписки скоро появится')">Узнать подробнее</button>
-                </div>
-            </div>
-
-            <h2 class="section-title">Популярные категории</h2>
-            <div class="popular-grid">
-                <div class="card" onclick="openCategory('tea-black', 'Черный россыпной чай')">
-                    <img src="black_tea.jpg" class="card-img" alt="Черный чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
-                    <div class="card-body"><h3>Черный чай</h3></div>
-                </div>
-                <div class="card" onclick="openCategory('tea-green', 'Зеленый россыпной чай')">
-                    <img src="zelen.jpg" class="card-img" alt="Зеленый чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
-                    <div class="card-body"><h3>Зеленый чай</h3></div>
-                </div>
-                <div class="card" onclick="openCategory('coffee', 'Кофе в зернах')">
-                    <img src="coffee_cat.jpg" class="card-img" alt="Кофе в зернах" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
-                    <div class="card-body"><h3>Кофе в зернах</h3></div>
-                </div>
-            </div>
-
-            <!-- Блог / Рецепты -->
-            <h2 class="section-title">Чайные ритуалы</h2>
-            <div class="blog-grid" style="margin-bottom: 50px;">
-                <div class="blog-card">
-                    <img src="ZAVAR1.jpg" class="blog-img" alt="Как правильно заваривать пуэр" onerror="this.src='https://via.placeholder.com/300x160?text=Фото'">
-                    <div class="blog-body">
-                        <h4>Как правильно заваривать пуэр</h4>
-                        <p>Секреты пролива и правильная температура воды для раскрытия вкуса.</p>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <img src="ZAVAR2.jpg" class="blog-img" alt="Матча для начинающих" onerror="this.src='https://via.placeholder.com/300x160?text=Фото'">
-                    <div class="blog-body">
-                        <h4>Матча для начинающих</h4>
-                        <p>Разница между церемониальной и кулинарной матчей, способы взбивания.</p>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <img src="ZAVAR3.jpg" class="blog-img" alt="Кофе на воронке V60" onerror="this.src='https://via.placeholder.com/300x160?text=Фото'">
-                    <div class="blog-body">
-                        <h4>Кофе на воронке V60</h4>
-                        <p>Пошаговый рецепт идеального пуровера в домашних условиях.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Подписка -->
-            <div class="newsletter">
-                <h2>Будьте в курсе новинок</h2>
-                <p>Подпишитесь на рассылку и получите скидку 10% на первый заказ.</p>
-                <div class="newsletter-form">
-                    <input type="email" placeholder="Ваш email">
-                    <button class="btn" onclick="showToast('Вы успешно подписались!')">Подписаться</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2. КАТАЛОГ -->
-    <div id="catalog" class="page-content">
-        <div class="container">
-            <h1 class="section-title">Наш каталог</h1>
-            <div class="grid-catalog">
-                <div class="card" onclick="openCategory('tea-black', 'Черный россыпной чай')">
-                    <img src="black_tea.jpg" class="card-img" alt="Черный чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
-                    <div class="card-body"><h3>Черный чай</h3></div>
-                </div>
-                <div class="card" onclick="openCategory('tea-green', 'Зеленый россыпной чай')">
-                    <img src="zelen.jpg" class="card-img" alt="Зеленый чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
-                    <div class="card-body"><h3>Зеленый чай</h3></div>
-                </div>
-                <div class="card" onclick="openCategory('tea-herbal', 'Травяной россыпной чай')">
-                    <img src="trav.jpg" class="card-img" alt="Травяной чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
-                    <div class="card-body"><h3>Травяные чаи</h3></div>
-                </div>
-                <div class="card" onclick="openCategory('coffee', 'Кофе в зернах и молотый')">
-                    <img src="coffee_cat.jpg" class="card-img" alt="Кофе" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
-                    <div class="card-body"><h3>Кофе</h3></div>
-                </div>
-                <div class="card" onclick="openCategory('accessories', 'Аксессуары')">
-                    <img src="accessories_cat.jpg" class="card-img" alt="Посуда и аксессуары" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
-                    <div class="card-body"><h3>Посуда и аксессуары</h3></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. ЛИСТИНГ (ТОВАРЫ) -->
-    <div id="listing" class="page-content">
-        <div class="container">
-            <h1 id="listing-title" class="section-title">Название категории</h1>
-            
-            <div class="controls-bar">
-                <div class="filter-group">
-                    <div class="filter-bar" id="roast-filter" style="display: none;">
-                        <button class="filter-btn active" onclick="filterProducts('all', this)">Все сорта</button>
-                        <button class="filter-btn" onclick="filterProducts('light', this)">Светлая</button>
-                        <button class="filter-btn" onclick="filterProducts('dark', this)">Темная</button>
-                    </div>
+    <!-- ОБЕРТКА ДЛЯ КОНТЕНТА -->
+    <div class="main-content">
+        <!-- 1. ГЛАВНАЯ -->
+        <div id="home" class="page-content active">
+            <div class="container">
+                <div class="hero">
+                    <h1>Свежий рассыпной чай<br>и кофе с доставкой</h1>
+                    <p>Прямые поставки от плантаций. Продаем только на развес — никаких пакетиков!</p>
+                    <button class="btn" onclick="showPage('catalog')">Перейти в каталог</button>
                 </div>
                 
-                <div class="sort-group">
-                    <label for="sort-select">Показать сначала:</label>
-                    <select id="sort-select" onchange="sortProducts(this.value)">
-                        <option value="popular">Популярные</option>
-                        <option value="new">Новинки</option>
-                        <option value="price-asc">Дешевле</option>
-                        <option value="price-desc">Дороже</option>
-                        <option value="rating">С высоким рейтингом</option>
-                        <option value="discount">С большими скидками</option>
-                    </select>
+                <div class="features">
+                    <div class="feature-card"><h3>Только на развес</h3><p>Отвешиваем ровно столько, сколько нужно вам.</p></div>
+                    <div class="feature-card"><h3>Свежая обжарка</h3><p>Гарантируем высокое качество каждого зерна.</p></div>
+                    <div class="feature-card"><h3>Быстрая доставка</h3><p>Отправляем заказы в день оплаты.</p></div>
                 </div>
-            </div>
 
-            <div class="grid-catalog" id="product-list">
-                <!-- Товары вставляются через JS -->
+                <div class="promo-grid">
+                    <div class="promo-card">
+                        <h2>Первый заказ без предоплаты</h2>
+                        <p>Оформите заказ на любую сумму и оплатите при получении курьеру или в пункте выдачи.</p>
+                        <button class="btn" onclick="showPage('catalog')">Выбрать чай</button>
+                    </div>
+                    <div class="promo-card accent">
+                        <h2>Чайный клуб</h2>
+                        <p>Подпишитесь на ежемесячную доставку любимых сортов и получайте скидку 15% на весь ассортимент.</p>
+                        <button class="btn" onclick="alert('Форма подписки скоро появится')">Узнать подробнее</button>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Популярные категории</h2>
+                <div class="popular-grid">
+                    <div class="card" onclick="openCategory('tea-black', 'Черный рассыпной чай')">
+                        <img src="black_tea.jpg" class="card-img" alt="Черный чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
+                        <div class="card-body"><h3>Черный чай</h3></div>
+                    </div>
+                    <div class="card" onclick="openCategory('tea-green', 'Зеленый рассыпной чай')">
+                        <img src="zelen.jpg" class="card-img" alt="Зеленый чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
+                        <div class="card-body"><h3>Зеленый чай</h3></div>
+                    </div>
+                    <div class="card" onclick="openCategory('coffee', 'Кофе в зернах')">
+                        <img src="coffee_cat.jpg" class="card-img" alt="Кофе в зернах" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
+                        <div class="card-body"><h3>Кофе в зернах</h3></div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Чайные ритуалы</h2>
+                <div class="blog-grid" style="margin-bottom: 50px;">
+                    <div class="blog-card">
+                        <img src="ZAVAR1.jpg" class="blog-img" alt="Как правильно заваривать пуэр" onerror="this.src='https://via.placeholder.com/300x160?text=Фото'">
+                        <div class="blog-body">
+                            <h4>Как правильно заваривать пуэр</h4>
+                            <p>Секреты пролива и правильная температура воды для раскрытия вкуса.</p>
+                        </div>
+                    </div>
+                    <div class="blog-card">
+                        <img src="ZAVAR2.jpg" class="blog-img" alt="Матча для начинающих" onerror="this.src='https://via.placeholder.com/300x160?text=Фото'">
+                        <div class="blog-body">
+                            <h4>Матча для начинающих</h4>
+                            <p>Разница между церемониальной и кулинарной матчей, способы взбивания.</p>
+                        </div>
+                    </div>
+                    <div class="blog-card">
+                        <img src="ZAVAR3.jpg" class="blog-img" alt="Кофе на воронке V60" onerror="this.src='https://via.placeholder.com/300x160?text=Фото'">
+                        <div class="blog-body">
+                            <h4>Кофе на воронке V60</h4>
+                            <p>Пошаговый рецепт идеального пуровера в домашних условиях.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="newsletter">
+                    <h2>Будьте в курсе новинок</h2>
+                    <p>Подпишитесь на рассылку и получите скидку 10% на первый заказ.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Ваш email">
+                        <button class="btn" onclick="showToast('Вы успешно подписались!')">Подписаться</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- 4. КАРТОЧКА ТОВАРА -->
-    <div id="product" class="page-content">
-        <div class="container">
-            <div class="product-page">
-                <!-- Левая колонка - фото -->
-                <div class="product-gallery">
-                    <img id="product-img" src="" class="product-img" alt="Товар">
+        <!-- 2. КАТАЛОГ -->
+        <div id="catalog" class="page-content">
+            <div class="container">
+                <h1 class="section-title">Наш каталог</h1>
+                <div class="grid-catalog">
+                    <div class="card" onclick="openCategory('tea-black', 'Черный рассыпной чай')">
+                        <img src="black_tea.jpg" class="card-img" alt="Черный чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
+                        <div class="card-body"><h3>Черный чай</h3></div>
+                    </div>
+                    <div class="card" onclick="openCategory('tea-green', 'Зеленый рассыпной чай')">
+                        <img src="zelen.jpg" class="card-img" alt="Зеленый чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
+                        <div class="card-body"><h3>Зеленый чай</h3></div>
+                    </div>
+                    <div class="card" onclick="openCategory('tea-herbal', 'Травяной рассыпной чай')">
+                        <img src="trav.jpg" class="card-img" alt="Травяной чай" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
+                        <div class="card-body"><h3>Травяные чаи</h3></div>
+                    </div>
+                    <div class="card" onclick="openCategory('coffee', 'Кофе в зернах и молотый')">
+                        <img src="coffee_cat.jpg" class="card-img" alt="Кофе" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
+                        <div class="card-body"><h3>Кофе</h3></div>
+                    </div>
+                    <div class="card" onclick="openCategory('accessories', 'Аксессуары')">
+                        <img src="accessories_cat.jpg" class="card-img" alt="Посуда и аксессуары" onerror="this.src='https://via.placeholder.com/400x220?text=Нет+фото'">
+                        <div class="card-body"><h3>Посуда и аксессуары</h3></div>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- 3. ЛИСТИНГ (ТОВАРЫ) -->
+        <div id="listing" class="page-content">
+            <div class="container">
+                <h1 id="listing-title" class="section-title">Название категории</h1>
                 
-                <!-- Правая колонка - информация -->
-                <div class="product-info">
-                    <h1 id="product-name">Название</h1>
-                    <div class="rating-stars" id="product-rating"></div>
-                    
-                    <div class="price-block">
-                        <div class="price" id="product-price">0 ₽</div>
-                        <div class="old-price" id="product-old-price"></div>
+                <div class="controls-bar">
+                    <div class="filter-section">
+                        <div class="filter-group">
+                            <input type="text" id="search-input" class="search-input" placeholder="Поиск по названию..." oninput="applyFilters()">
+                        </div>
+                        <div class="filter-group">
+                            <label for="price-filter">Цена:</label>
+                            <select id="price-filter" class="price-select" onchange="applyFilters()">
+                                <option value="all">Любая</option>
+                                <option value="0-400">До 400 ₽</option>
+                                <option value="400-800">400 - 800 ₽</option>
+                                <option value="800-99999">Свыше 800 ₽</option>
+                            </select>
+                        </div>
+                        <div class="filter-bar" id="roast-filter" style="display: none;">
+                            <button class="filter-btn active" onclick="filterRoast('all', this)">Все сорта</button>
+                            <button class="filter-btn" onclick="filterRoast('light', this)">Светлая</button>
+                            <button class="filter-btn" onclick="filterRoast('dark', this)">Темная</button>
+                        </div>
                     </div>
                     
-                    <p style="color: var(--accent); font-weight: 600; margin-bottom: 15px;">✓ В наличии</p>
-                    
-                    <ul class="specs-list" id="product-specs"></ul>
-                    
-                    <button class="btn" style="width: 100%; margin-bottom: 20px;" id="add-btn">Добавить в корзину</button>
-
-                    <!-- Компактные блоки описания -->
-                    <div class="detail-block" id="block-taste">
-                        <h3>Вкусовой профиль</h3>
-                        <p id="product-taste">...</p>
-                    </div>
-
-                    <div class="detail-block" id="block-origin">
-                        <h3>Место сбора / Происхождение</h3>
-                        <p id="product-origin">...</p>
+                    <div class="sort-group">
+                        <label for="sort-select">Сортировка:</label>
+                        <select id="sort-select" onchange="applyFilters()">
+                            <option value="popular">Популярные</option>
+                            <option value="new">Новинки</option>
+                            <option value="price-asc">Дешевле</option>
+                            <option value="price-desc">Дороже</option>
+                            <option value="rating">С высоким рейтингом</option>
+                            <option value="discount">С большими скидками</option>
+                        </select>
                     </div>
                 </div>
-            </div>
 
-            <!-- БЛОК ОТЗЫВОВ -->
-            <div class="reviews-section">
-                <h2>Отзывы покупателей (<span id="reviews-count">0</span>)</h2>
-                <div id="reviews-list">
-                    <!-- Отзывы вставляются через JS -->
+                <div class="grid-catalog" id="product-list">
+                    <!-- Товары вставляются через JS -->
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 5. КОРЗИНА -->
-    <div id="cart" class="page-content">
-        <div class="container">
-            <h1 class="section-title">Ваша корзина</h1>
-            <div id="cart-items-container" style="background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-height: 250px;"></div>
-            
-            <div class="cart-total" id="cart-total">Итого: 0 ₽</div>
-            <div style="text-align: right; margin-top: 30px; display: none;" id="checkout-container">
-                <button class="btn" onclick="showPage('checkout')" style="font-size: 18px; padding: 15px 40px;">Перейти к оформлению</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 6. ОФОРМЛЕНИЕ ЗАКАЗА -->
-    <div id="checkout" class="page-content">
-        <div class="container">
-            <h1 class="section-title">Оформление заказа</h1>
-            <div class="checkout-grid">
-                <div class="checkout-form-container">
-                    <h2 style="margin-bottom: 20px;">Данные получателя</h2>
-                    <form onsubmit="submitCheckout(event)">
-                        <div class="form-group">
-                            <label>Ваше имя *</label>
-                            <input type="text" id="checkout-name" required placeholder="Иван Иванов">
+        <!-- 4. КАРТОЧКА ТОВАРА -->
+        <div id="product" class="page-content">
+            <div class="container">
+                <div class="product-page">
+                    <div class="product-gallery">
+                        <img id="product-img-main" src="" class="product-img-main" alt="Товар">
+                        <div class="product-thumbnails" id="product-thumbnails">
+                            <!-- Миниатюры добавляются через JS -->
                         </div>
-                        <div class="form-group">
-                            <label>Телефон *</label>
-                            <input type="tel" id="checkout-phone" required placeholder="+7 (999) 123-45-67">
-                        </div>
-                        <div class="form-group">
-                            <label>Email *</label>
-                            <input type="email" id="checkout-email" required placeholder="ivan@mail.ru">
-                        </div>
-                        <div class="form-group">
-                            <label>Адрес доставки *</label>
-                            <textarea id="checkout-address" rows="3" required placeholder="Город, улица, дом, квартира"></textarea>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="checkout-agree" required>
-                            <label for="checkout-agree">Согласен с условиями доставки</label>
-                        </div>
-                        <p id="checkoutError" class="error-msg"></p>
-                        <button type="submit" class="btn" style="width: 100%;">Подтвердить заказ</button>
-                    </form>
-                </div>
-                <div class="checkout-summary">
-                    <h2 style="margin-bottom: 20px;">Ваш заказ</h2>
-                    <div id="checkout-summary-list"></div>
-                    <div class="cart-total" id="checkout-summary-total">Итого: 0 ₽</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 7. КОНТАКТЫ С ФОРМОЙ И КАРТОЙ -->
-    <div id="contacts" class="page-content">
-        <div class="container">
-            <h1 class="section-title">Свяжитесь с нами</h1>
-            
-            <!-- Инфо и Форма -->
-            <div class="contact-grid">
-                <div>
-                    <h2 style="margin-bottom: 20px;">Наш офис</h2>
-                    <p style="margin-bottom: 15px; font-size: 16px;">📍 г. Москва, ул. Чайная, д. 10</p>
-                    <p style="margin-bottom: 15px; font-size: 16px;">📞 <a href="tel:+79991234567" style="color: var(--primary); text-decoration: none; font-weight: 600;">+7 (999) 123-45-67</a></p>
-                    <p style="margin-bottom: 15px; font-size: 16px;">✉️ <a href="mailto:info@teaplanet.ru" style="color: var(--primary); text-decoration: none; font-weight: 600;">info@teaplanet.ru</a></p>
-                    <p style="margin-bottom: 30px; font-size: 16px;">🕒 Ежедневно с 10:00 до 20:00</p>
+                    </div>
                     
-                    <h3 style="margin-bottom: 15px; color: var(--primary);">Реквизиты</h3>
-                    <p style="font-size: 14px; color: #666; margin-bottom: 5px;">ООО «Чайная Планета»</p>
-                    <p style="font-size: 14px; color: #666;">ИНН: 7701234567 | КПП: 770101001</p>
+                    <div class="product-info">
+                        <h1 id="product-name">Название</h1>
+                        <div class="rating-stars" id="product-rating"></div>
+                        
+                        <div class="price-block">
+                            <div class="price" id="product-price">0 ₽</div>
+                            <div class="old-price" id="product-old-price"></div>
+                        </div>
+                        
+                        <p style="color: var(--accent); font-weight: 600; margin-bottom: 15px;">✓ В наличии</p>
+                        
+                        <ul class="specs-list" id="product-specs"></ul>
+                        
+                        <button class="btn" style="width: 100%; margin-bottom: 20px;" id="add-btn">Добавить в корзину</button>
+
+                        <div class="detail-block" id="block-taste">
+                            <h3>Вкусовой профиль</h3>
+                            <p id="product-taste">...</p>
+                        </div>
+
+                        <div class="detail-block" id="block-origin">
+                            <h3>Место сбора / Происхождение</h3>
+                            <p id="product-origin">...</p>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <!-- ВОЗВРАЩЕННАЯ ФОРМА ОБРАТНОЙ СВЯЗИ -->
-                    <h2 style="margin-bottom: 20px;">Напишите нам</h2>
-                    <form onsubmit="validateForm(event)">
-                        <div class="form-group"><label>Ваше имя</label><input type="text" id="name" required></div>
-                        <div class="form-group"><label>Email</label><input type="email" id="email" required></div>
-                        <div class="form-group"><label>Сообщение</label><textarea id="message" rows="5" required></textarea></div>
-                        <div class="checkbox-group"><input type="checkbox" id="agree" required><label for="agree">Согласен на обработку персональных данных</label></div>
-                        <p id="formError" class="error-msg"></p>
-                        <button type="submit" class="btn" style="width: 100%;">Отправить сообщение</button>
-                    </form>
+
+                <div class="reviews-section">
+                    <h2>Отзывы покупателей (<span id="reviews-count">0</span>)</h2>
+                    <div id="reviews-list"></div>
                 </div>
             </div>
+        </div>
 
-            <!-- КАРТА ВНИЗУ (на всю ширину) -->
-            <div class="contact-map-block">
-                <div class="contact-map">
-                    <img src="https://static-maps.yandex.ru/1.x/?lang=ru_RU&ll=37.644174,55.764357&z=15&l=map&pt=37.644174,55.764357,pm2rdm" alt="Карта проезда" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;background:#eee;color:#888;\'>Карта временно недоступна</div>';">
+        <!-- 5. КОРЗИНА -->
+        <div id="cart" class="page-content">
+            <div class="container">
+                <h1 class="section-title">Ваша корзина</h1>
+                <div id="cart-items-container" style="background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-height: 250px;"></div>
+                
+                <div class="cart-total" id="cart-total">Итого: 0 ₽</div>
+                <div style="text-align: right; margin-top: 30px; display: none;" id="checkout-container">
+                    <button class="btn" onclick="showPage('checkout')" style="font-size: 18px; padding: 15px 40px;">Перейти к оформлению</button>
                 </div>
             </div>
-
         </div>
-    </div>
 
-    <!-- 8. О НАС -->
-    <div id="about" class="page-content">
-        <div class="container" style="text-align: center; max-width: 800px;">
-            <h1 class="section-title">О компании</h1>
-            <p style="margin-top: 30px; font-size: 18px; line-height: 1.8;">Компания «Чайная Планета» работает на рынке с 2020 года. Наша миссия — дарить тепло и бодрость в каждой чашке, делая привычный ритуал чаепития или утреннего кофе особенным. Мы тщательно отбираем лучшие сорта, продаем чай исключительно на развес и обжариваем кофе только небольшими партиями для сохранения свежести.</p>
+        <!-- 6. ОФОРМЛЕНИЕ ЗАКАЗА -->
+        <div id="checkout" class="page-content">
+            <div class="container">
+                <h1 class="section-title">Оформление заказа</h1>
+                <div class="checkout-grid">
+                    <div class="checkout-form-container">
+                        <h2 style="margin-bottom: 20px;">Данные получателя</h2>
+                        <form onsubmit="submitCheckout(event)">
+                            <div class="form-group">
+                                <label>Ваше имя *</label>
+                                <input type="text" id="checkout-name" required placeholder="Иван Иванов">
+                            </div>
+                            <div class="form-group">
+                                <label>Телефон *</label>
+                                <input type="tel" id="checkout-phone" required placeholder="+7 (999) 123-45-67">
+                            </div>
+                            <div class="form-group">
+                                <label>Email *</label>
+                                <input type="email" id="checkout-email" required placeholder="ivan@mail.ru">
+                            </div>
+                            <div class="form-group">
+                                <label>Адрес доставки *</label>
+                                <textarea id="checkout-address" rows="3" required placeholder="Город, улица, дом, квартира"></textarea>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="checkout-agree" required>
+                                <label for="checkout-agree">Согласен с условиями доставки</label>
+                            </div>
+                            <p id="checkoutError" class="error-msg"></p>
+                            <button type="submit" class="btn" style="width: 100%;">Подтвердить заказ</button>
+                        </form>
+                    </div>
+                    <div class="checkout-summary">
+                        <h2 style="margin-bottom: 20px;">Ваш заказ</h2>
+                        <div id="checkout-summary-list"></div>
+                        <div class="cart-total" id="checkout-summary-total">Итого: 0 ₽</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <!-- 7. КОНТАКТЫ -->
+        <div id="contacts" class="page-content">
+            <div class="container">
+                <h1 class="section-title">Свяжитесь с нами</h1>
+                
+                <div class="contact-grid">
+                    <div>
+                        <h2 style="margin-bottom: 20px;">Наш офис</h2>
+                        <p style="margin-bottom: 15px; font-size: 16px;">📍 г. Москва, ул. Чайная, д. 10</p>
+                        <p style="margin-bottom: 15px; font-size: 16px;">📞 <a href="tel:+79991234567" style="color: var(--primary); text-decoration: none; font-weight: 600;">+7 (999) 123-45-67</a></p>
+                        <p style="margin-bottom: 15px; font-size: 16px;">✉️ <a href="mailto:info@teaplanet.ru" style="color: var(--primary); text-decoration: none; font-weight: 600;">info@teaplanet.ru</a></p>
+                        <p style="margin-bottom: 30px; font-size: 16px;">🕒 Ежедневно с 10:00 до 20:00</p>
+                        
+                        <h3 style="margin-bottom: 15px; color: var(--primary);">Реквизиты</h3>
+                        <p style="font-size: 14px; color: #666; margin-bottom: 5px;">ООО «Чайная Планета»</p>
+                        <p style="font-size: 14px; color: #666;">ИНН: 7701234567 | КПП: 770101001</p>
+                    </div>
+                    <div>
+                        <h2 style="margin-bottom: 20px;">Напишите нам</h2>
+                        <form onsubmit="validateForm(event)">
+                            <div class="form-group"><label>Ваше имя</label><input type="text" id="name" required></div>
+                            <div class="form-group"><label>Email</label><input type="email" id="email" required></div>
+                            <div class="form-group"><label>Сообщение</label><textarea id="message" rows="5" required></textarea></div>
+                            <div class="checkbox-group"><input type="checkbox" id="agree" required><label for="agree">Согласен на обработку персональных данных</label></div>
+                            <p id="formError" class="error-msg"></p>
+                            <button type="submit" class="btn" style="width: 100%;">Отправить сообщение</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="contact-map-block">
+                    <div class="contact-map">
+                        <img src="https://static-maps.yandex.ru/1.x/?lang=ru_RU&ll=37.644174,55.764357&z=15&l=map&pt=37.644174,55.764357,pm2rdm" alt="Карта проезда" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;background:#eee;color:#888;\'>Карта временно недоступна</div>';">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. О НАС -->
+        <div id="about" class="page-content">
+            <div class="container">
+                <h1 class="section-title">О компании</h1>
+                
+                <div class="about-hero">
+                    <div class="about-text">
+                        <h2>Добро пожаловать в «Чайную Планету»</h2>
+                        <p>Мы — команда энтузиастов, влюбленных в чай и кофе. Наш путь начался в 2020 году с небольшой чайной лавки, а сегодня мы рады доставлять свежие напитки по всей России.</p>
+                        <p>Наша миссия — дарить тепло и бодрость в каждой чашке, делая привычный ритуал чаепития или утреннего кофе особенным. Мы тщательно отбираем лучшие сорта, продаем чай исключительно на развес и обжариваем кофе только небольшими партиями для сохранения свежести.</p>
+                        <p>Каждый продукт проходит строгий контроль качества. Мы работаем напрямую с плантациями Индии, Китая, Шри-Ланки и Эфиопии, чтобы вы могли наслаждаться аутентичным вкусом без посредников.</p>
+                    </div>
+                    <img src="about_shop.jpg" class="about-image" alt="Наш магазин" onerror="this.src='https://via.placeholder.com/600x400?text=Фото+магазина'">
+                </div>
+
+                <div class="about-features">
+                    <div class="about-feature-card">
+                        <h3>Наши ценности</h3>
+                        <p>Честность, прозрачность и любовь к своему делу. Мы никогда не продаем продукт, который не нравится нам самим.</p>
+                    </div>
+                    <div class="about-feature-card">
+                        <h3>Прямые поставки</h3>
+                        <p>Мы исключили всех посредников. Вы получаете свежий продукт по справедливой цене напрямую от производителей.</p>
+                    </div>
+                    <div class="about-feature-card">
+                        <h3>Своя обжарка</h3>
+                        <p>Обжариваем кофе каждую неделю на собственном оборудовании. Вы всегда получаете продукт в пике вкуса.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Конец main-content -->
 
     <!-- ПОДВАЛ -->
     <footer>
         <div class="container">
-            <p style="font-size: 20px; font-weight: 600; margin-bottom: 15px; color: #fff;">Чайная Планета</p>
-            <p>© 2026 ООО «Чайная Планета». Все права защищены.</p>
-            <p style="margin-top: 20px; font-size: 14px;">Разработчик: MakCorp | <a href="#" onclick="showPage('about')">О нас</a> | <a href="#" onclick="showPage('contacts')">Контакты</a></p>
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Чайная Планета</h4>
+                    <p>Свежий чай и кофе с доставкой по России. Работаем с 2020 года.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Меню</h4>
+                    <a href="#" onclick="showPage('home')">Главная</a>
+                    <a href="#" onclick="showPage('catalog')">Каталог</a>
+                    <a href="#" onclick="showPage('about')">О нас</a>
+                    <a href="#" onclick="showPage('contacts')">Контакты</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Мы в соцсетях</h4>
+                    <div class="social-links">
+                        <a href="https://vk.com" target="_blank" title="ВКонтакте">
+                            <svg viewBox="0 0 24 24"><path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.576-1.496c.588-.19 1.341 1.26 2.14 1.818.605.422 1.064.33 1.064.33l2.137-.03s1.117-.07.587-.954c-.043-.072-.308-.66-1.585-1.868-1.337-1.263-1.158-1.058.452-3.245.98-1.324 1.372-2.132 1.249-2.478-.117-.33-.842-.244-.842-.244l-2.406.015s-.178-.025-.31.056c-.13.08-.213.265-.213.265s-.382 1.033-.891 1.912c-1.073 1.84-1.5 1.937-1.675 1.823-.407-.267-.305-1.075-.305-1.65 0-1.793.268-2.54-.52-2.733-.262-.064-.454-.106-1.124-.113-.858-.01-1.583.003-1.994.208-.273.136-.484.44-.356.457.16.02.522.1.714.365.247.34.238 1.104.238 1.104s.142 2.11-.332 2.372c-.325.18-.772-.187-1.73-1.862-.49-.86-.86-1.81-.86-1.81s-.07-.177-.2-.272c-.155-.115-.372-.15-.372-.15l-2.286.015s-.343.01-.47.16c-.112.134-.008.41-.008.41s1.79 4.248 3.817 6.388c1.858 1.96 3.968 1.83 3.968 1.83h1.025z"/></svg>
+                        </a>
+                        <a href="https://t.me" target="_blank" title="Telegram">
+                            <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 ООО «Чайная Планета». Все права защищены.</p>
+                <p style="margin-top: 5px;">Разработчик: MakCorp</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // БАЗА ДАННЫХ
+        // БАЗА ДАННЫХ (С заменой россыпной -> рассыпной)
         const productsDB = [
             { 
-                id: 1, cat: 'tea-black', name: 'Эрл Грей', price: 380, oldPrice: 450, desc: 'Россыпной, 100 г', img: 'Erl_Gray.jpg', 
+                id: 1, cat: 'tea-black', name: 'Эрл Грей', price: 380, oldPrice: 450, desc: 'Рассыпной, 100 г', img: 'Erl_Gray.jpg', img2: 'ZAVAR1.jpg', img3: 'ZAVAR2.jpg',
                 rating: 4.8, reviewsCount: 124, isNew: false, popularity: 95, discount: 15,
                 taste: 'Классический терпкий вкус с ярко выраженными цитрусовыми нотками бергамота. Освежающее послевкусие.',
                 origin: 'Индия, плантации Нилгири. Ароматизирован натуральным маслом бергамота.',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный россыпной', 'Страна': 'Индия' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный рассыпной', 'Страна': 'Индия' },
                 reviews: [
                     { author: 'Анна', date: '12.10.2025', rating: 5, text: 'Мой самый любимый сорт! Аромат просто божественный, пью с молоком.' },
                     { author: 'Дмитрий', date: '05.09.2025', rating: 4, text: 'Хороший чай, бергамот чувствуется, но не перебивает сам лист.' }
                 ]
             },
             { 
-                id: 2, cat: 'tea-black', name: 'Цейлонский Высокогорный', price: 450, oldPrice: null, desc: 'Россыпной, 100 г', img: 'ceylon.jpg', 
+                id: 2, cat: 'tea-black', name: 'Цейлонский Высокогорный', price: 450, oldPrice: null, desc: 'Рассыпной, 100 г', img: 'ceylon.jpg', img2: 'ZAVAR2.jpg', img3: 'ZAVAR3.jpg',
                 rating: 4.6, reviewsCount: 89, isNew: false, popularity: 80, discount: 0,
                 taste: 'Насыщенный, яркий вкус с медовыми и цветочными оттенками. Крепкий настой.',
                 origin: 'Шри-Ланка, высокогорные плантации Нувара-Элия (высота 1800 м).',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный россыпной', 'Страна': 'Шри-Ланка' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный рассыпной', 'Страна': 'Шри-Ланка' },
                 reviews: [{ author: 'Елена', date: '20.11.2025', rating: 5, text: 'Отличный бодрящий чай. Заваривается быстро, цвет красивый.' }]
             },
             { 
-                id: 3, cat: 'tea-black', name: 'Ассам', price: 420, oldPrice: null, desc: 'Россыпной, 100 г', img: 'Asaam.jpg', 
+                id: 3, cat: 'tea-black', name: 'Ассам', price: 420, oldPrice: null, desc: 'Рассыпной, 100 г', img: 'Asaam.jpg', img2: 'ZAVAR3.jpg', img3: 'ZAVAR1.jpg',
                 rating: 4.7, reviewsCount: 156, isNew: false, popularity: 90, discount: 0,
                 taste: 'Крепкий, солодовый вкус. Идеально подходит для утреннего чаепития с добавлением молока.',
                 origin: 'Индия, долина реки Брахмапутра. Славятся своими солодовыми сортами.',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный россыпной', 'Страна': 'Индия' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный рассыпной', 'Страна': 'Индия' },
                 reviews: [{ author: 'Максим', date: '01.12.2025', rating: 5, text: 'Очень крепкий, именно то, что нужно утром.' }]
             },
             { 
-                id: 4, cat: 'tea-black', name: 'Дарджилинг', price: 550, oldPrice: 650, desc: 'Россыпной, 100 г', img: 'darjeeling.jpg', 
+                id: 4, cat: 'tea-black', name: 'Дарджилинг', price: 550, oldPrice: 650, desc: 'Рассыпной, 100 г', img: 'darjeeling.jpg', img2: 'ZAVAR1.jpg', img3: 'ZAVAR3.jpg',
                 rating: 4.9, reviewsCount: 210, isNew: false, popularity: 99, discount: 15,
                 taste: 'Утонченный вкус с нотками мускатного ореха и свежескошенной травы. Называют «шампанским среди чаев».',
                 origin: 'Индия, предгорья Гималаев. Первый весенний сбор.',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный россыпной', 'Страна': 'Индия' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный рассыпной', 'Страна': 'Индия' },
                 reviews: [{ author: 'Ольга', date: '15.10.2025', rating: 5, text: 'Божественный аромат. Пью без сахара, чтобы чувствовать все нотки.' }]
             },
             { 
-                id: 5, cat: 'tea-black', name: 'Английский завтрак', price: 350, oldPrice: null, desc: 'Россыпной, 100 г', img: 'English_Breakfast.jpg', 
+                id: 5, cat: 'tea-black', name: 'Английский завтрак', price: 350, oldPrice: null, desc: 'Рассыпной, 100 г', img: 'English_Breakfast.jpg', img2: 'ZAVAR2.jpg', img3: 'ZAVAR1.jpg',
                 rating: 4.5, reviewsCount: 320, isNew: false, popularity: 85, discount: 0,
                 taste: 'Сбалансированный купаж с крепостью и легкой терпкостью. Отлично сочетается с молоком.',
                 origin: 'Купаж чаев из Ассама, Цейлона и Кении.',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный россыпной', 'Страна': 'Купаж' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Черный рассыпной', 'Страна': 'Купаж' },
                 reviews: [{ author: 'Иван', date: '10.09.2025', rating: 4, text: 'Обычный, привычный вкус. Хорош на каждый день.' }]
             },
             { 
-                id: 11, cat: 'tea-green', name: 'Японский Сенча', price: 600, oldPrice: null, desc: 'Россыпной, 50 г', img: 'Japan.jpg', 
+                id: 11, cat: 'tea-green', name: 'Японский Сенча', price: 600, oldPrice: null, desc: 'Рассыпной, 50 г', img: 'Japan.jpg', img2: 'ZAVAR3.jpg', img3: 'ZAVAR2.jpg',
                 rating: 4.8, reviewsCount: 75, isNew: true, popularity: 70, discount: 0,
                 taste: 'Свежий, травянистый вкус с легкой горчинкой. Содержит много витаминов.',
                 origin: 'Япония, префектура Шизуока. Обработан паром.',
-                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Зеленый россыпной', 'Страна': 'Япония' },
+                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Зеленый рассыпной', 'Страна': 'Япония' },
                 reviews: [{ author: 'Светлана', date: '22.11.2025', rating: 5, text: 'Очень свежий, изумрудный настой. Люблю заваривать во второй половине дня.' }]
             },
             { 
-                id: 12, cat: 'tea-green', name: 'Молочный Улун', price: 520, oldPrice: 600, desc: 'Россыпной, 100 г', img: 'oolong.jpg', 
+                id: 12, cat: 'tea-green', name: 'Молочный Улун', price: 520, oldPrice: 600, desc: 'Рассыпной, 100 г', img: 'oolong.jpg', img2: 'ZAVAR1.jpg', img3: 'ZAVAR3.jpg',
                 rating: 4.9, reviewsCount: 412, isNew: false, popularity: 98, discount: 13,
                 taste: 'Нежный сливочный аромат и сладковатый вкус. Ноты молока и ванили.',
                 origin: 'Китай, провинция Фуцзянь. Слабоферментированный чай.',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Зеленый россыпной', 'Страна': 'Китай' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Зеленый рассыпной', 'Страна': 'Китай' },
                 reviews: [{ author: 'Мария', date: '01.12.2025', rating: 5, text: 'Это просто нереально! Пахнет печеньем и молоком. Дети тоже пьют.' }]
             },
             { 
-                id: 13, cat: 'tea-green', name: 'Жасминовый', price: 450, oldPrice: null, desc: 'Россыпной, 100 г', img: 'jasmin.jpg', 
+                id: 13, cat: 'tea-green', name: 'Жасминовый', price: 450, oldPrice: null, desc: 'Рассыпной, 100 г', img: 'jasmin.jpg', img2: 'ZAVAR2.jpg', img3: 'ZAVAR1.jpg',
                 rating: 4.7, reviewsCount: 188, isNew: false, popularity: 88, discount: 0,
                 taste: 'Цветочный, сладкий аромат жасмина, который прекрасно дополняет вкус зеленого чая.',
                 origin: 'Китай, провинция Фуцзянь. Ароматизируется лепестками жасмина.',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Зеленый россыпной', 'Страна': 'Китай' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Зеленый рассыпной', 'Страна': 'Китай' },
                 reviews: [{ author: 'Ксения', date: '14.10.2025', rating: 5, text: 'Очень ароматный, в офисе все спрашивают, что это за запах.' }]
             },
             { 
-                id: 14, cat: 'tea-green', name: 'Лунцзин (Колодец Дракона)', price: 800, oldPrice: 950, desc: 'Россыпной, 50 г', img: 'longjing.jpg', 
+                id: 14, cat: 'tea-green', name: 'Лунцзин (Колодец Дракона)', price: 800, oldPrice: 950, desc: 'Рассыпной, 50 г', img: 'longjing.jpg', img2: 'ZAVAR3.jpg', img3: 'ZAVAR2.jpg',
                 rating: 5.0, reviewsCount: 56, isNew: false, popularity: 75, discount: 16,
                 taste: 'Изысканный, мягкий вкус с ореховыми и цветочными нотками. Один из лучших китайских чаев.',
                 origin: 'Китай, озеро Сиху. Знаменитый сорт, собираемый вручную.',
-                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Зеленый россыпной', 'Страна': 'Китай' },
+                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Зеленый рассыпной', 'Страна': 'Китай' },
                 reviews: [{ author: 'Артем', date: '20.11.2025', rating: 5, text: 'Дорого, но оно того стоит. Вкус невероятно чистый и мягкий.' }]
             },
             { 
-                id: 15, cat: 'tea-green', name: 'Матча', price: 900, oldPrice: null, desc: 'Порошковый, 30 г', img: 'matcha.jpg', 
+                id: 15, cat: 'tea-green', name: 'Матча', price: 900, oldPrice: null, desc: 'Порошковый, 30 г', img: 'matcha.jpg', img2: 'ZAVAR1.jpg', img3: 'ZAVAR2.jpg',
                 rating: 4.9, reviewsCount: 230, isNew: true, popularity: 92, discount: 0,
                 taste: 'Насыщенный, слегка горьковатый вкус с мощным зарядом бодрости и антиоксидантов.',
                 origin: 'Япония. Каменные жернова, порошок ярко-зеленого цвета.',
@@ -674,47 +760,47 @@
                 reviews: [{ author: 'Дарья', date: '25.11.2025', rating: 5, text: 'Отличная матча! Делаю с молоком по утрам, бодрит супер.' }]
             },
             { 
-                id: 21, cat: 'tea-herbal', name: 'Каркаде', price: 300, oldPrice: null, desc: 'Россыпной, 100 г', img: 'karkade.jpg', 
+                id: 21, cat: 'tea-herbal', name: 'Каркаде', price: 300, oldPrice: null, desc: 'Рассыпной, 100 г', img: 'karkade.jpg', img2: 'ZAVAR2.jpg', img3: 'ZAVAR3.jpg',
                 rating: 4.6, reviewsCount: 112, isNew: false, popularity: 60, discount: 0,
                 taste: 'Кисло-сладкий, терпкий вкус с нотками ягод. Отлично пьется холодным.',
                 origin: 'Судан. Лепестки гибискуса.',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Травяной россыпной', 'Страна': 'Судан' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Травяной рассыпной', 'Страна': 'Судан' },
                 reviews: [{ author: 'Наталья', date: '11.08.2025', rating: 5, text: 'Летом пьем только его, с добавлением сахара и льда.' }]
             },
             { 
-                id: 22, cat: 'tea-herbal', name: 'Ромашковый', price: 280, oldPrice: null, desc: 'Россыпной, 50 г', img: 'Romashk.jpg', 
+                id: 22, cat: 'tea-herbal', name: 'Ромашковый', price: 280, oldPrice: null, desc: 'Рассыпной, 50 г', img: 'Romashk.jpg', img2: 'ZAVAR3.jpg', img3: 'ZAVAR1.jpg',
                 rating: 4.8, reviewsCount: 340, isNew: false, popularity: 89, discount: 0,
                 taste: 'Мягкий, успокаивающий вкус с теплым цветочным ароматом.',
                 origin: 'Египет. Сушеные цветки ромашки аптечной.',
-                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Травяной россыпной', 'Страна': 'Египет' },
+                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Травяной рассыпной', 'Страна': 'Египет' },
                 reviews: [{ author: 'Ирина', date: '02.12.2025', rating: 5, text: 'Идеально перед сном. Успокаивает и помогает заснуть.' }]
             },
             { 
-                id: 23, cat: 'tea-herbal', name: 'Мятный', price: 250, oldPrice: null, desc: 'Россыпной, 50 г', img: 'mint.jpg', 
+                id: 23, cat: 'tea-herbal', name: 'Мятный', price: 250, oldPrice: null, desc: 'Рассыпной, 50 г', img: 'mint.jpg', img2: 'ZAVAR1.jpg', img3: 'ZAVAR2.jpg',
                 rating: 4.7, reviewsCount: 145, isNew: false, popularity: 82, discount: 0,
                 taste: 'Освежающий, прохладный вкус и бодрящий аромат перечной мяты.',
                 origin: 'Россия, Краснодарский край. Листья перечной мяты.',
-                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Травяной россыпной', 'Страна': 'Россия' },
+                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Травяной рассыпной', 'Страна': 'Россия' },
                 reviews: [{ author: 'Павел', date: '18.10.2025', rating: 4, text: 'Хорошая мята, крепкая. Добавляю в черный чай.' }]
             },
             { 
-                id: 24, cat: 'tea-herbal', name: 'Липовый', price: 300, oldPrice: null, desc: 'Россыпной, 50 г', img: 'lipov.jpg', 
+                id: 24, cat: 'tea-herbal', name: 'Липовый', price: 300, oldPrice: null, desc: 'Рассыпной, 50 г', img: 'lipov.jpg', img2: 'ZAVAR2.jpg', img3: 'ZAVAR3.jpg',
                 rating: 4.5, reviewsCount: 87, isNew: false, popularity: 65, discount: 0,
                 taste: 'Сладковатый, медвяный вкус. Отлично помогает при простуде.',
                 origin: 'Россия. Сушеные соцветия липы.',
-                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Травяной россыпной', 'Страна': 'Россия' },
+                specs: { 'Фасовка': 'На развес, 50 г', 'Тип': 'Травяной рассыпной', 'Страна': 'Россия' },
                 reviews: [{ author: 'Евгений', date: '05.11.2025', rating: 5, text: 'Пахнет настоящим липовым медом. Беру на зиму.' }]
             },
             { 
-                id: 25, cat: 'tea-herbal', name: 'Иван-чай', price: 350, oldPrice: null, desc: 'Ферментированный, 100 г', img: 'Ivan-chai.jpg', 
+                id: 25, cat: 'tea-herbal', name: 'Иван-чай', price: 350, oldPrice: null, desc: 'Ферментированный, 100 г', img: 'Ivan-chai.jpg', img2: 'ZAVAR3.jpg', img3: 'ZAVAR1.jpg',
                 rating: 4.9, reviewsCount: 205, isNew: false, popularity: 91, discount: 0,
                 taste: 'Мягкий, слегка земляной вкус с медовыми нотками. Не содержит кофеина.',
                 origin: 'Россия, Алтай. Традиционный русский чай из листьев кипрея.',
-                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Травяной россыпной', 'Страна': 'Россия' },
+                specs: { 'Фасовка': 'На развес, 100 г', 'Тип': 'Травяной рассыпной', 'Страна': 'Россия' },
                 reviews: [{ author: 'Михаил', date: '28.11.2025', rating: 5, text: 'Вкус детства. Пью вместо обычного чая, очень нравится.' }]
             },
             { 
-                id: 31, cat: 'coffee', name: 'Эфиопия Иргачефф', price: 890, oldPrice: 1050, desc: 'В зернах, светлая обжарка, 250 г', img: 'ethiopia.jpg', roast: 'light',
+                id: 31, cat: 'coffee', name: 'Эфиопия Иргачефф', price: 890, oldPrice: 1050, desc: 'В зернах, светлая обжарка, 250 г', img: 'ethiopia.jpg', img2: 'ZAVAR1.jpg', img3: 'ZAVAR2.jpg', roast: 'light',
                 rating: 4.9, reviewsCount: 320, isNew: false, popularity: 100, discount: 15,
                 taste: 'Яркая кислотность, ноты черники, жасмина и цитрусовых. Идеально для воронки.',
                 origin: 'Эфиопия, регион Иргачефф. Мытый метод обработки.',
@@ -722,7 +808,7 @@
                 reviews: [{ author: 'Алексей', date: '01.12.2025', rating: 5, text: 'Это лучший кофе, который я пробовал. Очень фруктовый.' }]
             },
             { 
-                id: 32, cat: 'coffee', name: 'Колумбия Супремо', price: 820, oldPrice: null, desc: 'В зернах, темная обжарка, 250 г', img: 'colombia.jpg', roast: 'dark',
+                id: 32, cat: 'coffee', name: 'Колумбия Супремо', price: 820, oldPrice: null, desc: 'В зернах, темная обжарка, 250 г', img: 'colombia.jpg', img2: 'ZAVAR2.jpg', img3: 'ZAVAR3.jpg', roast: 'dark',
                 rating: 4.7, reviewsCount: 215, isNew: false, popularity: 85, discount: 0,
                 taste: 'Сбалансированный вкус с нотками шоколада, орехов и карамели. Плотное тело.',
                 origin: 'Колумбия, регион Уила. Мытый метод.',
@@ -730,7 +816,7 @@
                 reviews: [{ author: 'Сергей', date: '15.11.2025', rating: 5, text: 'Классика. Отличный кофе для эспрессо.' }]
             },
             { 
-                id: 33, cat: 'coffee', name: 'Бразилия Сантос', price: 750, oldPrice: null, desc: 'В зернах, светлая обжарка, 250 г', img: 'brazil.jpg', roast: 'light',
+                id: 33, cat: 'coffee', name: 'Бразилия Сантос', price: 750, oldPrice: null, desc: 'В зернах, светлая обжарка, 250 г', img: 'brazil.jpg', img2: 'ZAVAR3.jpg', img3: 'ZAVAR1.jpg', roast: 'light',
                 rating: 4.6, reviewsCount: 180, isNew: false, popularity: 75, discount: 0,
                 taste: 'Мягкий, сладковатый вкус с нотками орехов и темного шоколада. Низкая кислотность.',
                 origin: 'Бразилия, штат Сан-Паулу. Естественная обработка (натурал).',
@@ -738,7 +824,7 @@
                 reviews: [{ author: 'Олег', date: '10.10.2025', rating: 4, text: 'Мягкий, пьется легко. Хорош для турки.' }]
             },
             { 
-                id: 34, cat: 'coffee', name: 'Кения AA', price: 950, oldPrice: 1100, desc: 'В зернах, темная обжарка, 250 г', img: 'kenya.jpg', roast: 'dark',
+                id: 34, cat: 'coffee', name: 'Кения AA', price: 950, oldPrice: 1100, desc: 'В зернах, темная обжарка, 250 г', img: 'kenya.jpg', img2: 'ZAVAR1.jpg', img3: 'ZAVAR3.jpg', roast: 'dark',
                 rating: 4.8, reviewsCount: 140, isNew: true, popularity: 95, discount: 14,
                 taste: 'Мощный вкус с нотками черной смородины и грейпфрута, винной кислотностью.',
                 origin: 'Кения. Высший сорт AA (крупные зерна).',
@@ -746,7 +832,7 @@
                 reviews: [{ author: 'Кирилл', date: '22.11.2025', rating: 5, text: 'Очень необычный, ягодный кофе. Сильно бодрит.' }]
             },
             { 
-                id: 35, cat: 'coffee', name: 'Коста-Рика Тарразу', price: 880, oldPrice: null, desc: 'В зернах, светлая обжарка, 250 г', img: 'costarica.jpg', roast: 'light',
+                id: 35, cat: 'coffee', name: 'Коста-Рика Тарразу', price: 880, oldPrice: null, desc: 'В зернах, светлая обжарка, 250 г', img: 'costarica.jpg', img2: 'ZAVAR2.jpg', img3: 'ZAVAR1.jpg', roast: 'light',
                 rating: 4.9, reviewsCount: 95, isNew: false, popularity: 80, discount: 0,
                 taste: 'Чистый, сладкий вкус с нотами меда, апельсина и цветов.',
                 origin: 'Коста-Рика, регион Тарразу. Вулканическая почва, мытый метод.',
@@ -754,7 +840,7 @@
                 reviews: [{ author: 'Виктория', date: '05.12.2025', rating: 5, text: 'Очень вкусный, цветочный аромат. Пью с удовольствием.' }]
             },
             { 
-                id: 41, cat: 'accessories', name: 'Чайник стеклянный', price: 1200, oldPrice: 1500, desc: '500 мл', img: 'teapot.jpg', 
+                id: 41, cat: 'accessories', name: 'Чайник стеклянный', price: 1200, oldPrice: 1500, desc: '500 мл', img: 'teapot.jpg', img2: 'ZAVAR3.jpg', img3: 'ZAVAR2.jpg',
                 rating: 4.7, reviewsCount: 45, isNew: false, popularity: 50, discount: 20,
                 taste: 'Не применимо (аксессуар).',
                 origin: 'Термостойкое стекло. Подходит для заваривания чая и цветов.',
@@ -762,7 +848,7 @@
                 reviews: [{ author: 'Антон', date: '01.09.2025', rating: 5, text: 'Красивый, удобно мыть.' }]
             },
             { 
-                id: 43, cat: 'accessories', name: 'Кружка керамическая', price: 600, oldPrice: null, desc: '350 мл', img: 'mug.jpg', 
+                id: 43, cat: 'accessories', name: 'Кружка керамическая', price: 600, oldPrice: null, desc: '350 мл', img: 'mug.jpg', img2: 'ZAVAR1.jpg', img3: 'ZAVAR3.jpg',
                 rating: 4.5, reviewsCount: 60, isNew: false, popularity: 40, discount: 0,
                 taste: 'Не применимо.',
                 origin: 'Глина, глазурь. Ручная работа.',
@@ -770,7 +856,7 @@
                 reviews: []
             },
             { 
-                id: 44, cat: 'accessories', name: 'Ситечко для чая', price: 350, oldPrice: null, desc: 'Нержавеющая сталь', img: 'sito.jpg', 
+                id: 44, cat: 'accessories', name: 'Ситечко для чая', price: 350, oldPrice: null, desc: 'Нержавеющая сталь', img: 'sito.jpg', img2: 'ZAVAR2.jpg', img3: 'ZAVAR1.jpg',
                 rating: 4.8, reviewsCount: 80, isNew: false, popularity: 55, discount: 0,
                 taste: 'Не применимо.',
                 origin: 'Нержавеющая сталь. Мелкая сетка.',
@@ -781,50 +867,81 @@
 
         let currentCategoryItems = [];
         let cart = [];
-        let currentSort = 'popular';
+        let currentRoastFilter = 'all';
 
         function openCategory(catId, catName) {
             document.getElementById('listing-title').innerText = catName;
             
-            const filterBar = document.getElementById('roast-filter');
+            const roastFilter = document.getElementById('roast-filter');
             if (catId === 'coffee') {
-                filterBar.style.display = 'flex';
+                roastFilter.style.display = 'flex';
             } else {
-                filterBar.style.display = 'none';
+                roastFilter.style.display = 'none';
             }
 
+            document.getElementById('search-input').value = '';
+            document.getElementById('price-filter').value = 'all';
+            document.getElementById('sort-select').value = 'popular';
+            currentRoastFilter = 'all';
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             if(document.querySelectorAll('.filter-btn').length > 0) {
                 document.querySelectorAll('.filter-btn')[0].classList.add('active');
             }
 
-            document.getElementById('sort-select').value = 'popular';
-            currentSort = 'popular';
-
             currentCategoryItems = productsDB.filter(p => p.cat === catId);
-            sortProducts('popular');
+            applyFilters();
             showPage('listing');
         }
 
-        function sortProducts(sortType) {
-            currentSort = sortType;
-            let sortedItems = [...currentCategoryItems];
+        function applyFilters() {
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            const priceRange = document.getElementById('price-filter').value;
+            const sortType = document.getElementById('sort-select').value;
+
+            let filtered = currentCategoryItems.filter(prod => {
+                const matchesSearch = prod.name.toLowerCase().includes(searchQuery);
+                
+                let matchesPrice = true;
+                if (priceRange !== 'all') {
+                    const [min, max] = priceRange.split('-').map(Number);
+                    matchesPrice = prod.price >= min && prod.price <= max;
+                }
+
+                let matchesRoast = true;
+                if (currentRoastFilter !== 'all') {
+                    matchesRoast = prod.roast === currentRoastFilter;
+                }
+
+                return matchesSearch && matchesPrice && matchesRoast;
+            });
 
             switch (sortType) {
-                case 'price-asc': sortedItems.sort((a, b) => a.price - b.price); break;
-                case 'price-desc': sortedItems.sort((a, b) => b.price - a.price); break;
-                case 'rating': sortedItems.sort((a, b) => b.rating - a.rating); break;
-                case 'new': sortedItems.sort((a, b) => (b.isNew === true) - (a.isNew === true)); break;
-                case 'discount': sortedItems.sort((a, b) => b.discount - a.discount); break;
-                case 'popular': default: sortedItems.sort((a, b) => b.popularity - a.popularity); break;
+                case 'price-asc': filtered.sort((a, b) => a.price - b.price); break;
+                case 'price-desc': filtered.sort((a, b) => b.price - a.price); break;
+                case 'rating': filtered.sort((a, b) => b.rating - a.rating); break;
+                case 'new': filtered.sort((a, b) => (b.isNew === true) - (a.isNew === true)); break;
+                case 'discount': filtered.sort((a, b) => b.discount - a.discount); break;
+                case 'popular': default: filtered.sort((a, b) => b.popularity - a.popularity); break;
             }
 
-            renderProducts(sortedItems);
+            renderProducts(filtered);
+        }
+
+        function filterRoast(roast, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentRoastFilter = roast;
+            applyFilters();
         }
 
         function renderProducts(items) {
             const list = document.getElementById('product-list');
             list.innerHTML = ''; 
+
+            if (items.length === 0) {
+                list.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1; padding: 40px; color: #888;">По вашему запросу ничего не найдено. Попробуйте изменить фильтры.</p>';
+                return;
+            }
 
             items.forEach(prod => {
                 let badgesHTML = '';
@@ -861,21 +978,6 @@
             });
         }
 
-        function filterProducts(roast, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            if (roast === 'all') {
-                sortProducts(currentSort);
-            } else {
-                const filtered = currentCategoryItems.filter(p => p.roast === roast);
-                const originalItems = currentCategoryItems;
-                currentCategoryItems = filtered;
-                sortProducts(currentSort);
-                currentCategoryItems = originalItems;
-            }
-        }
-
         function openProduct(id) {
             const prod = productsDB.find(p => p.id === id);
             
@@ -893,8 +995,20 @@
             let starsHTML = `★`.repeat(Math.round(prod.rating)) + `☆`.repeat(5 - Math.round(prod.rating));
             document.getElementById('product-rating').innerHTML = `<span style="color:var(--star); font-size:20px;">${starsHTML}</span> <span class="rating-count" style="font-size:16px;">${prod.rating} (${prod.reviewsCount} отзывов)</span>`;
 
-            document.getElementById('product-img').src = prod.img;
-            document.getElementById('product-img').onerror = function() { this.src='https://via.placeholder.com/500x500?text=Нет+фото'; };
+            const mainImg = document.getElementById('product-img-main');
+            const thumbContainer = document.getElementById('product-thumbnails');
+            
+            mainImg.src = prod.img;
+            mainImg.onerror = function() { this.src='https://via.placeholder.com/500x500?text=Нет+фото'; };
+
+            thumbContainer.innerHTML = '';
+            thumbContainer.innerHTML += `<img src="${prod.img}" class="thumb-img active-thumb" onclick="changeMainImage(this, '${prod.img}')" onerror="this.style.display='none'">`;
+            if (prod.img2) {
+                thumbContainer.innerHTML += `<img src="${prod.img2}" class="thumb-img" onclick="changeMainImage(this, '${prod.img2}')" onerror="this.style.display='none'">`;
+            }
+            if (prod.img3) {
+                thumbContainer.innerHTML += `<img src="${prod.img3}" class="thumb-img" onclick="changeMainImage(this, '${prod.img3}')" onerror="this.style.display='none'">`;
+            }
 
             const specsList = document.getElementById('product-specs');
             specsList.innerHTML = '';
@@ -933,6 +1047,12 @@
             
             showPage('product');
             window.scrollTo(0, 0);
+        }
+
+        function changeMainImage(thumbElement, imgSrc) {
+            document.getElementById('product-img-main').src = imgSrc;
+            document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active-thumb'));
+            thumbElement.classList.add('active-thumb');
         }
 
         function addToCart(product) {
